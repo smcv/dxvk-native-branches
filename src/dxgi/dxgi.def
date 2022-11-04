@@ -1,3 +1,4 @@
+; Keep this in sync with dxgi.ver
 LIBRARY DXGI.DLL
 EXPORTS  
     CreateDXGIFactory @9

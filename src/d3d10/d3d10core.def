@@ -1,3 +1,4 @@
+; Keep this in sync with d3d10core.ver
 LIBRARY D3D10CORE.DLL
 EXPORTS  
     D3D10CoreCreateDevice

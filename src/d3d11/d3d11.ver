@@ -1,0 +1,11 @@
+
+/* Keep this in sync with d3d11.def */
+{
+global:
+  D3D11CoreCreateDevice;
+  D3D11CreateDevice;
+  D3D11CreateDeviceAndSwapChain;
+
+local:
+  *;
+};

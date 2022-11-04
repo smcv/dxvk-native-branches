@@ -1,3 +1,4 @@
+; Keep this in sync with d3d11.ver
 LIBRARY D3D11.DLL
 EXPORTS  
     D3D11CoreCreateDevice @18

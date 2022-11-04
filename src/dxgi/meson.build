@@ -12,11 +12,21 @@ dxgi_src = [
   'dxgi_swapchain.cpp',
 ]
 
+version_script_args = []
+
+if dxvk_native and dxvk_platform != 'windows'
+  version_script_args = [
+    '-Wl,--version-script=@0@/dxgi.ver'.format(meson.current_source_dir()),
+  ]
+endif
+
 dxgi_dll = shared_library(so_prefix+'dxgi'+dll_ext, dxgi_src, dxgi_res,
   name_prefix         : '',
   dependencies        : [ dxvk_dep, wsi_dep ],
+  gnu_symbol_visibility: 'hidden',
   include_directories : dxvk_include_path,
   install             : true,
+  link_args           : version_script_args,
   vs_module_defs      : 'dxgi'+def_spec_ext,
   override_options    : ['cpp_std='+dxvk_cpp_std])
 

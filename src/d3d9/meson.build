@@ -41,11 +41,21 @@ d3d9_src = [
   'd3d9_hud.cpp'
 ]
 
+version_script_args = []
+
+if dxvk_native and dxvk_platform != 'windows'
+  version_script_args = [
+    '-Wl,--version-script=@0@/d3d9.ver'.format(meson.current_source_dir()),
+  ]
+endif
+
 d3d9_dll = shared_library(so_prefix+'d3d9'+dll_ext, d3d9_src, glsl_generator.process(d3d9_shaders), d3d9_res,
   name_prefix         : '',
   dependencies        : [ dxso_dep, dxvk_dep, wsi_dep ],
+  gnu_symbol_visibility: 'hidden',
   include_directories : dxvk_include_path,
   install             : true,
+  link_args           : version_script_args,
   vs_module_defs      : 'd3d9'+def_spec_ext,
   override_options    : ['cpp_std='+dxvk_cpp_std])
 

@@ -1,4 +1,4 @@
-project('dxvk', ['c', 'cpp'], version : 'v1.9.2', meson_version : '>= 0.46')
+project('dxvk', ['c', 'cpp'], version : 'v1.9.2', meson_version : '>= 0.48')
 
 cpu_family = host_machine.cpu_family()
 
@@ -144,6 +144,8 @@ else
     lib_sdl2    = dxvk_compiler.find_library('SDL2')
     wrc = find_program('echo')
     so_prefix = 'libdxvk_'
+    # Make the libraries as self-contained as possible
+    add_project_link_arguments('-Wl,-Bsymbolic', language: ['c', 'cpp'])
   endif
 
   res_ext = ''

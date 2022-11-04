@@ -74,12 +74,22 @@ if dxvk_native
   lib_dxgi = dxgi_dep
 endif
 
+version_script_args = []
+
+if dxvk_native and dxvk_platform != 'windows'
+  version_script_args = [
+    '-Wl,--version-script=@0@/d3d11.ver'.format(meson.current_source_dir()),
+  ]
+endif
+
 d3d11_dll = shared_library(so_prefix+'d3d11'+dll_ext, dxgi_common_src + d3d11_src + d3d10_src,
     glsl_generator.process(d3d11_shaders), d3d11_res,
   name_prefix         : '',
   dependencies        : [ lib_dxgi, dxbc_dep, dxvk_dep, wsi_dep ],
+  gnu_symbol_visibility: 'hidden',
   include_directories : dxvk_include_path,
   install             : true,
+  link_args           : version_script_args,
   vs_module_defs      : 'd3d11'+def_spec_ext,
   override_options    : ['cpp_std='+dxvk_cpp_std])
 

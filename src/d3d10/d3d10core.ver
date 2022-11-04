@@ -1,0 +1,10 @@
+/* Keep this in sync with d3d10core.def */
+{
+global:
+  D3D10CoreCreateDevice;
+  D3D10CoreGetVersion;
+  D3D10CoreRegisterLayers;
+
+local:
+  *;
+};
